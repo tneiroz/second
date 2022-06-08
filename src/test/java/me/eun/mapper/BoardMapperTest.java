@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.junit.Before;
@@ -17,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import me.eun.config.RootConfig;
 import me.eun.model.Board;
 
