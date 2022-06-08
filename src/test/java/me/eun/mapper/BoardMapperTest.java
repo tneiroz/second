@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,12 +62,35 @@ public class BoardMapperTest extends AppTest {
 		board.setWriter("작성자테스트");
 		boardMapper.insert(board);
 		Board getBoard = boardMapper.get(5L);
+		//매퍼에 전달되면서 BoardMapper -> insert -> selectKey 에서 결과값 도출
 		
 		assertEquals(board.getTitle(),getBoard.getTitle());
 		assertEquals(board.getContent(),getBoard.getContent());
 		assertEquals(board.getWriter(), getBoard.getWriter());
+		assertEquals(board.getBno(),getBoard.getBno());
+	}
+	@Test
+	public void updateTest() {
+		Board board = boardMapper.get(1L);
+		board.setTitle("제목수정");
+		board.setContent("내용수정");
+		boardMapper.update(board);
+		assertEquals("제목수정",board.getTitle());
+		assertEquals("내용수정", board.getContent());
+		assertEquals("작성자1",board.getWriter());
 		
 	}
 	
-	
+	@Test
+	public void deleteTest() {
+		boardMapper.delete(1L);
+		boardMapper.delete(2L);
+		Board board1 = boardMapper.get(1L);
+		Board board2 = boardMapper.get(2L);
+		Board board3 = boardMapper.get(3L);
+		assertNull(board1);
+	    assertNull(board2);
+	    assertNotNull(board3);
+	    
+	}
 }
