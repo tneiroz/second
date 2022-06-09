@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import me.eun.model.Board;
 import me.eun.model.Criteria;
+import me.eun.model.PageMaker;
 import me.eun.service.BoardService;
 
 @Controller
@@ -24,8 +25,10 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public String boardList(Model model , Criteria criteria) {
-		service.getList(criteria);
+		PageMaker pageMaker = new PageMaker(criteria);
+		pageMaker.setCriteria(criteria);
 		model.addAttribute("list",service.getList(criteria));
+		model.addAttribute("pageMaker",pageMaker);
 		return "board/list";
 		
 	}
