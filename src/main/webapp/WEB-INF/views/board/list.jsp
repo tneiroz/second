@@ -39,7 +39,7 @@
       		<a href="?page=${pageNum}">[${pageNum}]</a>      
 	</c:forEach>
 		<c:if test="${pageMaker.next}">
-		<a href="?pages=${pageMaker.endPage +1}">[다음페이지]</a>	
+		<a href="?page=${pageMaker.endPage +1}">[다음페이지]</a>	
 	</c:if>	
 		
 </div>
