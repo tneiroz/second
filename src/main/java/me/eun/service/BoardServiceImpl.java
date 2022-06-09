@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import me.eun.mapper.BoardMapper;
 import me.eun.model.Board;
+import me.eun.model.Criteria;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -13,8 +14,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper boardMapper;
 	
 	@Override
-	public List<Board> getList() {
-		return boardMapper.getList();
+	public List<Board> getList(Criteria criteria) {
+		return boardMapper.getList(criteria);
 	}
 
 	@Override

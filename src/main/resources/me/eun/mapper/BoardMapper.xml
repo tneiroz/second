@@ -4,16 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.eun.mapper.BoardMapper">
   <select id="getList" resultType="me.eun.model.Board">
-    select * from board_tbl
+    select * from board_tbl limit #{pageStart},#{perPageNum}
   </select>
   
-  <!-- 
-  Board get (Long bno);
-	void  (Board board);
-	void update(Board board);
-	void delete (Long bno);
-  
-   -->
    <select id="get" resultType="me.eun.model.Board">
    		select* from board_tbl where bno = #{bno}
    </select>
