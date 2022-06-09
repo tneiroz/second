@@ -3,7 +3,7 @@ package me.eun.paging;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import me.eun.mapper.AppTest;
+import me.eun.AppTest;
 import me.eun.mapper.BoardMapper;
 import me.eun.model.Board;
 

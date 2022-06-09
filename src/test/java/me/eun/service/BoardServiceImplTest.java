@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import me.eun.mapper.AppTest;
+import me.eun.AppTest;
 import me.eun.model.Board;
 
 public class BoardServiceImplTest extends AppTest{

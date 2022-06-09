@@ -42,4 +42,9 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
+	@Override
+	public int totalCount() {
+		return boardMapper.totalCount();
+	}
+
 }

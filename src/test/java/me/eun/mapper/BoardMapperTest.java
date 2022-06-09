@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import me.eun.AppTest;
 import me.eun.config.RootConfig;
 import me.eun.model.Board;
 

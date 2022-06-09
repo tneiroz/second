@@ -32,10 +32,16 @@
 		</tr>	
 		</c:forEach>
 	</table>
+	<c:if test="${pageMaker.prev}">
+		<a href="?page=${pageMaker.startPage -1}">[이전페이지]</a>	
+	</c:if>
 		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
       		<a href="?page=${pageNum}">[${pageNum}]</a>      
-		</c:forEach>
-	
+	</c:forEach>
+		<c:if test="${pageMaker.next}">
+		<a href="?pages=${pageMaker.endPage +1}">[다음페이지]</a>	
+	</c:if>	
+		
 </div>
 
 <%@ include file="../layout/footer.jsp" %>

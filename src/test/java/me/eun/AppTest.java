@@ -1,4 +1,4 @@
-package me.eun.mapper;
+package me.eun;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
