@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,6 @@ public class BoardMapperTest extends AppTest {
 		runner.runScript(reader);
 		
 	}
-	
 	@Test
 	public void getListTest() {
 //		List<Board> list = boardMapper.getList();

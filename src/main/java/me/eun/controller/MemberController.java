@@ -20,4 +20,8 @@ public class MemberController {
 		System.out.println("회원가입");
 		return "member/register";
 	}
+	@GetMapping("/get")
+	public String get() { 
+		return "member/get";
+	}
 }
