@@ -12,6 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import me.eun.mapper.ReplyMapper;
+import me.eun.service.ReplyService;
+import me.eun.service.ReplyServiceImpl;
+
 @Configuration
 @ComponentScan("me.eun")
 @MapperScan("me.eun.mapper")
