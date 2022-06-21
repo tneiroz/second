@@ -1,5 +1,6 @@
 package me.eun.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,6 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 public class Criteria {
 	int page;
 	int perPageNum;
@@ -29,5 +31,11 @@ public class Criteria {
 	public String [] getTypeCollection() {//#{typeCollection} boardmapper.xml에 있는 typecollection 이용
 		return this.type !=null ? type.split("") : new String[] {};
 		
+	}
+
+	public Criteria(int page, int perPageNum) {
+		super();
+		this.page = page;
+		this.perPageNum = perPageNum;
 	}
 }
