@@ -28,8 +28,7 @@ public class ReplyController {
 	private ReplyService service;
 	
 	@PostMapping(value = "/new",
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
-			produces= MediaType.TEXT_PLAIN_VALUE)
+			consumes = MediaType.APPLICATION_JSON_VALUE,produces= MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
 		int insertCount  = service.register(vo);
 		return insertCount ==1 ?
