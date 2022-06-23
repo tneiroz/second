@@ -2,7 +2,7 @@
 
 let replyService = (function(){
 	//댓글 등록
-	function add(reply, callback){
+	function add(reply, callback,error){
 			$.ajax({
 				type : 'post',
 				url:contextPath+ '/replies/new',
@@ -77,11 +77,21 @@ let replyService = (function(){
 		
 	}  
 	
+	//조회
+	function get(rno,callback,error){  //파라미터 이름 rno로 
+		$.get(contextPath + "/replies/" +rno, function(result){ //contextPath 추가
+			if(callback) callback(result)
+		}).fail(function(xhr,status,err){
+			if(error) error(err)
+		})
+	}
+	
 	
 	return {add: add ,
 			getList : getList ,
 			remove : remove ,
-			update : update
+			update : update,
+			get : get //반드시 추가
 		}
 })();
 

@@ -15,6 +15,7 @@ $(function(){
 		
 		//댓글 등록 모달창
 		$('#addReplyBtn').click(function (){
+			modal.find('input').val('')
 			modalInputReplyDate.closest('div').hide();      //closest 는 조상 검색
 			modalModBtn.hide();
 		    modalRemoveBtn.hide();
@@ -34,7 +35,26 @@ $(function(){
 			})
 			
 		})
-	 showList(1);
+		showList(1);
+		
+		
+	$('.chat').on('click','li',function(){
+		//alert('클릭' + $(this).data('rno'));
+		let rno= $(this).closest('li').data('rno');
+		replyService.get(rno,function(reply){
+			console.log(reply);
+			modalInputReply.val(reply.reply);
+			modalInputReplyer.val(reply.replyer);
+			modalInputReplyDate.val(displayTime(reply.updateDate))
+									.attr("readonly","readonly");
+			modal.data("rno",reply.rno);
+			modalInputReplyDate.closest('div').show();
+			modalModBtn.show();
+			modalRemoveBtn.show();
+			modalRegisterBtn.hide();
+			modal.modal("show");
+		})
+	})
 	
 	 let replyUL = $('.chat');
 	 function showList(page){
@@ -47,6 +67,7 @@ $(function(){
     			  	<div class="header">
          				 <strong class="primary-font">${reply.replyer}</strong>
          				 <small class="pull-right text-muted">${displayTime(reply.regDate)}</small>
+
       				</div>
      				<p>${reply.reply}</p>
     			 </div>	
