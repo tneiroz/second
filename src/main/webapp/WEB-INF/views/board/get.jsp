@@ -26,6 +26,10 @@
 			<button class="btn btn-outline-danger remove">삭제</button>
 			<button class="btn btn-outline-primary list">목록</button>
 	</form>
+	
+	<!-- 댓글등록 -->
+	<button id="addReplyBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#replyForm"> 댓글등록 </button>
+	
 	<!-- 댓글 -->
 	<div class="row">
 		<div class="col-sm-12">
@@ -51,7 +55,46 @@
 		
 	</div> <!-- row end --> 
 	
-	</div> <!-- container end --> 
+	</div> <!-- container end -->
+	 
+	
+	
+	<!-- Modal -->
+<div class="modal fade" id="replyForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">댓글 달기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       	 <div class="form-group">
+         	<label for="reply">내용입력</label>
+        	<input class="form-control" name="reply" id="reply">
+         </div>
+      <div class="form-group">
+         	<label for="replyer">작성자</label>
+        	<input class="form-control" name="replyer" id="replyer">
+      </div>
+      <div class="form-group">
+         	<label for="regDate">등록일</label>
+        	<input class="form-control" name="regDate" id="regDate">
+      </div>
+       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" id = "modalModBtn">수정</button>
+        <button type="button" class="btn btn-danger" id = "modalRemoveBtn">삭제</button>
+        <button type="button" class="btn btn-primary" id = "modalRegisterBtn">등록</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+	
 	<script>
 	$(function(){
 		let getForm = $("#getForm");
@@ -77,8 +120,9 @@
 			getForm.submit();
 			
 		});
-	})
-	
+		
+		let bno = $('input[name="bno"]').val();
+
  
 //댓글 등록 테스트
 
