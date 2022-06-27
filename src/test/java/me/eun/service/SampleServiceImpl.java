@@ -7,6 +7,8 @@ public class SampleServiceImpl implements SampleService {
 
 	@Override
 	public Integer doAdd(String str1, String str2) throws Exception {
+		System.out.println("doAdd메소드 실행");
+		for(int i = 0; i<2000000000; i++) {}
 		return Integer.parseInt(str1) + Integer.parseInt(str2);
 	}
 
