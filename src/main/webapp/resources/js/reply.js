@@ -55,7 +55,7 @@ let replyService = (function(){
 				}
 		});
 		
-	} //remove 끝
+	} //댓글 수정
 	function update(reply, callback , error){
 			$.ajax({
 				type : 'put',

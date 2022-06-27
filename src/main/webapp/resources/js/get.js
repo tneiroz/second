@@ -55,6 +55,27 @@ $(function(){
 			modal.modal("show");
 		})
 	})
+	//댓글 수정 처리
+	modalModBtn.on('click',function(){
+		let reply = {
+			rno : modal.data('rno'),
+			reply: modalInputReply.val(),
+		}
+		replyService.update(reply,function(result){
+			alert(result);
+			modal.modal('hide');
+			showList(1);
+		})
+	})
+	
+	modalRemoveBtn.on('click', function(){
+		let rno = modal.data('rno');
+		replyService.remove(rno,function(result){
+			alert(result);
+			showList(1);
+		})
+	})
+
 	
 	 let replyUL = $('.chat');
 	 function showList(page){
@@ -89,6 +110,5 @@ $(function(){
 		return `${timeArr[0]}년 ${timeArr[1]}월${timeArr[2]}일`;
 	}
 	 
-	 
- })
  
+}) 
