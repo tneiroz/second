@@ -2,6 +2,8 @@ package me.eun.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import me.eun.model.Board;
 import me.eun.model.Criteria;
 
@@ -12,4 +14,5 @@ public interface BoardMapper {
 	void update(Board board);
 	void delete (Long bno);
 	int totalCount(Criteria criteria);
+	void updateReplyCnt(@Param("bno") Long bno,@Param ("amount") int amount);
 }
