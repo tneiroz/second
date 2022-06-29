@@ -1,9 +1,12 @@
 package me.eun.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
 public class UploadController {
@@ -49,10 +54,20 @@ public class UploadController {
 		}
 		
 		for(MultipartFile multipartFile : uploadFile) {
-			File savefile = new File(uploadPath, multipartFile.getOriginalFilename());
+			String uploadFileName = multipartFile.getOriginalFilename();
+			UUID uuid = UUID.randomUUID();
+			uploadFileName = uuid.toString() + "_" + uploadFileName;
+			
+			File savefile = new File(uploadPath,uploadFileName);
 			try {
 				multipartFile.transferTo(savefile);
-			} catch (IllegalStateException | IOException e) {
+				if(checkImageType(savefile)) {
+					FileOutputStream tumbnail = new FileOutputStream(new File(uploadPath,"s_"+uploadFileName));
+					Thumbnailator
+					.createThumbnail(multipartFile.getInputStream(), tumbnail, 100,100);
+				}
+				checkImageType(savefile);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -65,6 +80,14 @@ public class UploadController {
 		return str.replace("-",File.separator);
 	}
 	
-
+	private boolean checkImageType(File file) {
+		try {
+			String contentType = Files.probeContentType(file.toPath());
+			return contentType.startsWith("image");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 } //클래스 닫는 태그
