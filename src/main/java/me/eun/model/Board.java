@@ -1,6 +1,7 @@
 package me.eun.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +22,7 @@ public class Board {
 	private LocalDateTime regDate ;
 	private LocalDateTime updateDate;
 	
-	
+	private List<BoardAttachVO> attachList;
 	
 	
 }

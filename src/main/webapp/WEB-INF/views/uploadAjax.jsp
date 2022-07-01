@@ -98,7 +98,7 @@
 			   
 		})
 	  uploadResult.append(str);
-   }
+   } //uploadResult 끝
 	   
 	  uploadResult.on('click','span',function(){
 		let targetFile = $(this).data('file');
