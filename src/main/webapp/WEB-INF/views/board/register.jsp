@@ -4,11 +4,11 @@
 
 <div class= "container">
 	<form action="register" method="post" id="registerForm">
-	제목: <input type = "text" name="title"> <br>
+	제목: <input type="text" name="title"> <br>
 	내용: 
 	<textarea rows="20" cols="50"name="content"></textarea> <br>
 	작성자:<input type="text" name="writer"> <br>
-	<button>글쓰기</button>
+	<button>글등록</button>
 </form>
 <div class="row">
 	<div class="col-lg-12">
@@ -88,10 +88,23 @@
 		let form = $('#registerForm');
 		let submitBtn = $('#registerForm button');
 		
-		form.on('click',function(e){
+		//글쓰기 처리
+		submitBtn.on('click',function(e){
 			e.preventDefault();
-			console.log("폼 기본동작 금지");
-
+			//console.log("폼 기본동작 금지");   ->이거 해두면 글쓰기 버튼 안눌림
+			
+		let str ="";
+		$('.uploadResult li').each(function(i,obj) {
+			let jobj = $(obj);
+			//console.log(jobj);
+			//console.log(jobj.data('filename'));
+			
+			 str+= "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data('finename')+"'>"
+	         str+= "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data('uuid')+"'>"
+	         str+= "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data('path')+"'>"
+	         str+= "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data('type')+"'>";
+	      });
+	      form.append(str).submit();
 		})
 		
 		//파일 업로드
@@ -114,12 +127,10 @@
          dataType : 'json',
          success : function(result){
         	 showUploadResult(result);
-            
          }
-      
       });
-      
    })
+   
     $('.uploadResult ul').on('click','span',function(){
     	let targetFile = $(this).data('file');
     	let type=$(this).data('type');
