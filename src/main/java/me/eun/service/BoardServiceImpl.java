@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import me.eun.mapper.BoardAttachMapper;
 import me.eun.mapper.BoardMapper;
 import me.eun.model.Board;
+import me.eun.model.BoardAttachVO;
 import me.eun.model.Criteria;
 
 @Service
@@ -32,8 +33,7 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public void register(Board board) {
-		//boardMapper.insert(board);
-		System.out.println(board.getAttachList());
+		boardMapper.insert(board);
 		if(board.getAttachList()==null || board.getAttachList().size()==0) return;
 		board.getAttachList().forEach(attach -> {
 			attach.setBno(board.getBno());
@@ -56,6 +56,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int totalCount(Criteria criteria) {
 		return boardMapper.totalCount(criteria);
+	}
+
+	@Override
+	public List<BoardAttachVO> getAttacList(Long bno) {
+		return attachMapper.findByBno(bno);
 	}
 
 }
