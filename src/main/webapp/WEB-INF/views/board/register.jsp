@@ -55,22 +55,26 @@
 		   if(!uploadResultArr || uploadResultArr.length ==0) return;
 		   let str = "";
 		   $(uploadResultArr).each(function(i,obj) {
-			   if(!obj.image) { //이미지가 아닌 경우
+			   if(!obj.fileType) { //이미지가 아닌 경우
+				   
 				   let fileCellPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
 			       let fileLink = fileCellPath.replace(new RegExp(/\\/g),"/");
-			   	   console.log(fileCellPath);
-				   str+= "<li><img src='${contextPath}/resources/img/attach.png'>"
+			   	  
+			       str+= "<li class='list-group-item' data-path='"+obj.uploadPath+"' ";
+			       str+= "data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"; 	   
+				   str+= "<img src='${contextPath}/resources/img/attach.png'>"
 				   str+= "<a href='${contextPath}/download?fileName="+fileCellPath+"'>"+obj.fileName+"</a>"
 				   str+= "<span data-file='" +fileLink+"' data-type='file'>삭제</span>"
-				
-				   str+="</li>"
+				   str+= "</li>"
 				   
 			   } else {  //이미지인 경우
 				   let fileCellPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName); 
 			   	   let originPath = obj.uploadPath+"\\" +obj.uuid+ "_" + obj.fileName;
 			   	   originPath = originPath.replace(new RegExp(/\\/g),"/");
 			   	   
-			   	   str += "<li><img src='${contextPath}/display?fileName="+fileCellPath+"'>";
+			   	   str+= "<li class='list-group-item' data-path='"+obj.uploadPath+"'";
+			   	str+= "data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"; 
+			   	   str += "<img src='${contextPath}/display?fileName="+fileCellPath+"'>";
 			   	   str += "<a href='javascript:showImage(\""+originPath+"\")'>이미지 원본보기</a>"
 			   	   str += "<br><span data-file='"+fileCellPath+"'data-type ='image'>삭제</span>"
 			   	   str += "</li>"
