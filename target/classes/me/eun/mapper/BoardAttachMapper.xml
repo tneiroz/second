@@ -17,5 +17,13 @@
 		select * from attach_tbl where bno = #{bno}
 	</select>
 	
+	<delete id="deleteAll">
+		delete from attach_tbl where bno=#{bno}
+	</delete>
+	
+	<select id="getOldfiles" resultType="me.eun.model.BoardAttachVO">
+	   select * from attach_tbl 
+	   where uploadPath = date_format(date_add(now(), interval-0 day) ,'%Y\\%m\\%d');
+	</select>
 </mapper>
 	

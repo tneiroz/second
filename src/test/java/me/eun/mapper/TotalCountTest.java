@@ -1,7 +1,5 @@
 package me.eun.mapper;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

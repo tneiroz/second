@@ -1,12 +1,15 @@
 package me.eun.mapper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.sql.SQLException;
-import java.util.List;
+
 import javax.sql.DataSource;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.junit.Before;
@@ -81,6 +84,7 @@ public class BoardMapperTest extends AppTest {
 	}
 	
 	@Test
+	@Ignore
 	public void deleteTest() {
 		boardMapper.delete(1L);
 		boardMapper.delete(2L);

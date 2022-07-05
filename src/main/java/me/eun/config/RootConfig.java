@@ -10,20 +10,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
-import me.eun.mapper.ReplyMapper;
-import me.eun.service.ReplyService;
-import me.eun.service.ReplyServiceImpl;
 
 @Configuration
 @ComponentScan("me.eun")
 @MapperScan("me.eun.mapper")
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
+@EnableScheduling
 public class RootConfig {
 	
 	@Bean

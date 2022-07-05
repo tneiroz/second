@@ -40,15 +40,25 @@ public class BoardServiceImpl implements BoardService {
 			attachMapper.insert(attach);
 		});
 	}
-
+	@Transactional
 	@Override
 	public void modify(Board board) {
+		System.out.println(board.getAttachList());
+		attachMapper.deleteAll(board.getBno());
 		boardMapper.update(board);
-
+		if(board.getAttachList()!=null) {
+			
+			board.getAttachList().forEach(attach->{
+				attach.setBno(board.getBno());
+				attachMapper.insert(attach);
+			
+			});
+		}
 	}
-
+	@Transactional
 	@Override
 	public void remove(Long bno) {
+		attachMapper.deleteAll(bno);
 		boardMapper.delete(bno);
 
 	}
