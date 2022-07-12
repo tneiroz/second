@@ -2,7 +2,7 @@
 
 let replyService = (function(){
 	//댓글 등록
-	function add(reply, callback,error){
+	function add(reply, callback, error){
 			$.ajax({
 				type : 'post',
 				url:contextPath+ '/replies/new',
@@ -19,7 +19,7 @@ let replyService = (function(){
 					}
 				}
 			
-		});
+			});
 		
 	} 
 	
@@ -95,4 +95,4 @@ let replyService = (function(){
 		}
 })();
 
-console.log(replyService);
+//console.log(replyService);

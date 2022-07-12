@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import me.eun.mapper.MemberMapper;
 import me.eun.model.MemberVO;
 
+@Component
 public class CustomUserDetaliService implements UserDetailsService{
 
 	
@@ -17,7 +19,12 @@ public class CustomUserDetaliService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberVO memberVO = mapper.read(username);
-		return memberVO != null ? new CustomUser(memberVO): null;
+		if(memberVO == null) {
+			throw new UsernameNotFoundException(username);
+		}
+		return new CustomUser(memberVO);
 	}
 
 }
+
+

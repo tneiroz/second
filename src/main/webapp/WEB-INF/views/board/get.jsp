@@ -179,27 +179,26 @@
 			 })
 			 
 	 
-			 $(function(){
-				 //수정테스트
-				 function updateTest(){
-				 	replyService.update({
-						 rno : 4,
-						 bno : 1,
-						 reply : " **댓글 수정중이지롱**"
-				 },function(result){
-					 alert(result)
-				 	})
-			 	}
-				 				 
-				 function deleteTest(){
-					 replyService.remove(4,function(result){
-						 alert(result);
-					 },function(){
-						 alert('실패')
-					 })
-				 }
-			 	//deleteTest();
-			})
+			 //수정테스트
+			 function updateTest(){
+			 	replyService.update({
+					 rno : 4,
+					 bno : 1,
+					 reply : " **댓글 수정중이지롱**"
+			 },function(result){
+				 alert(result)
+			 	})
+		 	}
+			 				 
+			 function deleteTest(){
+				 replyService.remove(4,function(result){
+					 alert(result);
+				 },function(){
+					 alert('실패')
+				 })
+			 }
+		 	//deleteTest();
+	
 
 	})
 	</script>

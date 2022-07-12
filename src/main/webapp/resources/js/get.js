@@ -28,6 +28,7 @@ $(function(){
 					replyer : modalInputReplyer.val(),
 					bno : bnoValue
 			}
+			
 			replyService.add(reply,function(result){
 				alert(result);
 				modal.modal('hide');
