@@ -17,6 +17,8 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+import me.eun.security.CustomAccessDeniedHandler;
+
 
 @Configuration
 @EnableWebSecurity
@@ -55,28 +57,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	       http.addFilterBefore(filter, CsrfFilter.class);
 	       
 		http.csrf()
-		  .ignoringAntMatchers("/uploadAjaxAction", "/deleteFile","/replies/**");
+		    .ignoringAntMatchers("/uploadAjaxAction", "/deleteFile");
+		
 		http.authorizeRequests()
-		.antMatchers("/security/all").permitAll()
-		.antMatchers("/security/admin").access("hasRole('ADMIN')")
-		.antMatchers("/security/member").access("hasRole('MEMBER')")
+			.antMatchers("/security/all").permitAll()
+			.antMatchers("/security/admin").access("hasRole('ADMIN')")
+			.antMatchers("/security/member").access("hasRole('MEMBER')")
 		.and()
 			.formLogin()
-		.usernameParameter("loginId")
-		.passwordParameter("loginPw")
-		.loginPage("/customLogin")
-		.loginProcessingUrl("/member/login")
-		.successHandler(loginSuccessHandler)
-		.failureHandler(failureHandler);
+			.loginPage("/customLogin")
+			.usernameParameter("loginId")
+			.passwordParameter("loginPw")
+			.loginProcessingUrl("/member/login")
+			//.successHandler(loginSuccessHandler)
+			.failureHandler(failureHandler);
 		
 		http.rememberMe().key("project")
-		.tokenRepository(persistentTokenRepository)
-		.tokenValiditySeconds(604800);
+			.tokenRepository(persistentTokenRepository)
+			.tokenValiditySeconds(604800);
 		
 		http.logout()
 		   .logoutUrl("/customLogout")
 		   .invalidateHttpSession(true)
 		   .deleteCookies("remember-me" , "JSESSION_ID");
+		
+		http.exceptionHandling()
+			.accessDeniedHandler(new CustomAccessDeniedHandler());
 		  
 	}
 

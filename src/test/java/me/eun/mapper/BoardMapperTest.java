@@ -42,6 +42,7 @@ public class BoardMapperTest extends AppTest {
 		runner.runScript(reader);
 		
 	}
+	@Ignore
 	@Test
 	public void getListTest() {
 //		List<Board> list = boardMapper.getList();

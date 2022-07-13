@@ -30,7 +30,6 @@ public class AnnoSecController {
 //	}
 	
 	//마이페이지
-	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/anno/myPage/{userId}")
 	public String myPage(@PathVariable String userId ,

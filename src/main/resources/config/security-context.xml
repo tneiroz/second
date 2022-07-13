@@ -12,7 +12,7 @@
 	<bean id="customLoginSuccessHandler" class="me.eun.security.CustomLoginSuccessHandler"/>
 	<!--<bean id="customNoopPasswordEncoder" class="me.eun.security.CustomNoopPasswordEncoder"/>  -->
 	<bean id="bCryptPasswordEncoder" class ="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
-	<bean id="customUserDetaliService" class="me.eun.security.CustomUserDetaliService"></bean>
+	<bean id="customUserDetaliService" class="me.eun.security.CustomUserDetailService"></bean>
 	
 	<sec:http>    <!-- 경로설정  -->
 		<sec:intercept-url pattern="/security/all" access="permitAll" />

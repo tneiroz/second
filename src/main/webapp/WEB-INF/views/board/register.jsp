@@ -1,174 +1,163 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp" %>
+<sec:authentication property="principal.memberVO" var="memberVO"/>
+<sec:authentication property="principal.username" var="writer"/>
 
 <div class= "container">
-	<form action="register" method="post" id="registerForm">
+<div class="article_register my-4">
+	<h3>게시글 쓰기</h3>
+</div>
+
+<form action="register" method="post" id="registerForm">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-	제목: <input type="text" name="title"> <br>
-	내용: 
-	<textarea rows="20" cols="50"name="content"></textarea> <br>
-	작성자:<input type="text" name="writer"> <br>
-	<button>글등록</button>
+	<div class="form-group">
+		<label for="title">제목 :</label>
+		<input type="text" name="title" id="title" class="form-control">
+	</div>
+	<div class="form-group">
+		<label class="content">내용 :</label>
+		<textarea rows="10" cols="50" name="content" id="content" class="form-control"></textarea>
+	</div>
+	<div class="form-group">
+			<label for="writer">작성자 : </label>
+			<input type="text" name="writer" readonly="readonly"
+				class="form-control" value="${writer}">
+		</div>
+	<div class="d-flex justify-content-end">
+
+		<button class="btn btn-primary">글쓰기</button>
+	</div>
 </form>
-<div class="row">
+<div class="row my-5">
 	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
+		<div class="card">
+			<div class="card-header">
 				<h4>파일 첨부</h4>
 			</div>
-			<div class="panel-body">
-				<div class="form-group uploadDiv">
-					<input type="file" name= "uploadFile" multiple="multiple">			
+			<div class="card-body">
+				<div class="uploadDiv">
+					<input type="file" name="uploadFile" multiple="multiple">
 				</div>
 				<div class="uploadResult">
-					<ul></ul>
+					<ul class="list-group"></ul>
 				</div>
-			</div>  <!-- panel-body -->
-		</div>   <!-- panel end -->
-	</div>  <!-- col end -->
-</div>  <!--  row end -->
-
-<input type="checkbox" id="test"> 테스트 
-
-
-
-</div>  <!--  container end -->
+			</div> <!-- panel-body -->
+		</div> <!-- panel end -->
+	</div> <!-- col end -->
+</div><!-- row end -->
+</div> <!-- container end -->
 <script>
- 
-	   let regex = new RegExp("(.*?)\.(exe|sh|js|alz)$")
-	   let maxSize = 5242880;
-	   
-	   function checkExtension(fileName, fileSize){
-	      if(fileSize >= maxSize){
-	         alert('파일 크기 초과');
-	         return false;
-	      }
-	      if(regex.test(fileName)){
-	         alert('허용되지 않는 확장자');
-	         return false;
-	      }
-	      return true;
-	   }
-	   
-	   let uploadResult = $('.uploadResult ul');
-	   function showUploadResult(uploadResultArr){
-		   if(!uploadResultArr || uploadResultArr.length ==0) return;
-		   let str = "";
-		   $(uploadResultArr).each(function(i,obj) {
-			   if(!obj.fileType) { //이미지가 아닌 경우
-				   
-				   let fileCellPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
-			       let fileLink = fileCellPath.replace(new RegExp(/\\/g),"/");
-			   	  
-			       str+= "<li class='list-group-item' data-path='"+obj.uploadPath+"' ";
-			       str+= "data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"; 	   
-				   str+= "<img src='${contextPath}/resources/img/attach.png'>"
-				   str+= "<a href='${contextPath}/download?fileName="+fileCellPath+"'>"+obj.fileName+"</a>"
-				   str+= "<span data-file='" +fileLink+"' data-type='file'>삭제</span>"
-				   str+= "</li>"
-				   
-			   } else {  //이미지인 경우
-				   let fileCellPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName); 
-			   	   let originPath = obj.uploadPath+"\\" +obj.uuid+ "_" + obj.fileName;
-			   	   originPath = originPath.replace(new RegExp(/\\/g),"/");
-			   	   
-			   	   str+= "<li class='list-group-item' data-path='"+obj.uploadPath+"'";
-			   	str+= "data-uuid='"+obj.uuid+"'data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>"; 
-			   	   str += "<img src='${contextPath}/display?fileName="+fileCellPath+"'>";
-			   	   str += "<a href='javascript:showImage(\""+originPath+"\")'>이미지 원본보기</a>"
-			   	   str += "<br><span data-file='"+fileCellPath+"'data-type ='image'>삭제</span>"
-			   	   str += "</li>"
-			   }
-			   
-		})
-	  uploadResult.append(str);
-   }
-
-	$(function(){
-		let form = $('#registerForm');
-		let submitBtn = $('#registerForm button');
-		
-		//글쓰기 처리
-		submitBtn.on('click',function(e){
-			e.preventDefault();
-			//console.log("폼 기본동작 금지");   ->이거 해두면 글쓰기 버튼 안눌림
+let regex = new RegExp("(.*?)\.(exe|sh|js|alz)$")
+let maxSize = 5242880;
+function checkExtension(fileName, fileSize){
+	if(fileSize >= maxSize ){
+		alert('파일 사이즈 초과');
+		return false; 
+	}
+	if(regex.test(fileName)){
+		alert('허용되지 않는 확장자')
+		return false; 
+	}
+	return true; 
+}
+let uploadResult = $('.uploadResult ul');
+function showUploadResult(uploadResultArr){
+	if(!uploadResultArr || uploadResultArr.length == 0) return;
+	let str = "";
+	$(uploadResultArr).each(function(i,obj){
+		if(!obj.fileType){ // 이미지가 아닌 경우 
+			let fileCellPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_"+obj.fileName);
 			
-		let str ="";
-		$('.uploadResult li').each(function(i,obj) {
+			str+= "<li class='list-group-item' data-path='"+obj.uploadPath+"' ";
+			str+= "data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>";
+			str+= "<img src='${contextPath}/resources/img/attach.png' style='width:50px;' >"
+			str+= "<a href='${contextPath}/download?fileName="+fileCellPath+"'>"+obj.fileName+"</a>"
+			str+= "<div class='d-flex justify-content-end'><span data-file='"+fileCellPath+"' data-type='file'>삭제</span></div>"						
+			str+="</li>"
+		} else{ // 이미지인 경우
+			let fileCellPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_"+obj.fileName);
+			let originPath = obj.uploadPath+"\\"+obj.uuid+"_"+obj.fileName;
+			originPath = originPath.replace(new RegExp(/\\/g),"/");
+			
+			str+= "<li class='list-group-item' data-path='"+obj.uploadPath+"' ";
+			str+= "data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'>";
+			str += "<img src='${contextPath}/display?fileName="+fileCellPath+"'>";
+			str += "<a href='javascript:showImage(\""+originPath+"\")'>이미지원본보기</a>";
+			str += "<div class='d-flex justify-content-end'><span data-file='"+fileCellPath+"' data-type='image'>삭제</span></div>"
+			str += "</li>" 
+		}
+	})
+	uploadResult.append(str);
+}
+$(function(){
+	let form = $('#registerForm');
+	let submitBtn = $('#registerForm button');
+	
+	// 글쓰기 처리 
+	submitBtn.on('click',function(e){
+		e.preventDefault();
+		// console.log("폼 기본동작 금지");
+		
+		let str = "";
+		$('.uploadResult li').each(function(i,obj){
 			let jobj = $(obj);
-			//console.log(jobj);
+			// console.log(jobj);
 			//console.log(jobj.data('filename'));
 			
-			 str+= "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data('filename')+"'>"
-	         str+= "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data('uuid')+"'>"
-	         str+= "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data('path')+"'>"
-	         str+= "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data('type')+"'>";
-	      });
-	      form.append(str).submit();
-		})
+			str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data('filename')+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uuid' value='"+jobj.data('uuid')+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].uploadPath' value='"+jobj.data('path')+"'>";
+			str += "<input type='hidden' name='attachList["+i+"].fileType' value='"+jobj.data('type')+"'>";
+			
+		});
+		form.append(str).submit();
+	})
+	
+	// 파일업로드 
+	$('input[type="file"]').change(function(){
+		let formData = new FormData(); 
+		let inputFiles = $('input[name="uploadFile"]');
+		let files = inputFiles[0].files;
 		
-		//파일 업로드
-		$('input[type="file"]').change(function(){
-     	 let formData = new FormData();
-      	 let inputFiles = $('input[name="uploadFile"]');
-     	 let files = inputFiles[0].files;
-      
-        for(let f of files){
-         if(!checkExtension(f.name, f.size)) return false;
-         formData.append('uploadFile', f);
-      }
-      
-      $.ajax({
-         url : contextPath + '/uploadAjaxAction',
-         type : 'post',
-         processData : false,
-         contentType : false,
-         data : formData,
-         dataType : 'json',
-         success : function(result){
-        	 showUploadResult(result);
-         }
-      });
-   })
-   //파일 삭제
-    $('.uploadResult ul').on('click','span',function(){
-    	let targetFile = $(this).data('file');
-    	let type=$(this).data('type');
-    	let targetLi = $(this).closest('li'); 
-    	
-    	$.ajax({
-    		url : contextPath + '/deleteFile',
-    		type : 'post', 
-    		data : {fileName: targetFile, type: type},
-    		dataType : 'text',
-    		success: function(result){
-    			alert(result);
-    			targetLi.remove();
-    			
-    			
-    		}
-    	})
-    	
-    })
-   
-		/* 
-		//체크박스 
-		let checked = false;
-		$('#test').on('change',function(){
-			if(!checked){
-				checked = true;
-				alert('체크')
-			} else {
-			 checked = false;
-			 alert('체크해제')
+		for(let f of files){
+			if(!checkExtension(f.name, f.size)) return false; 
+			formData.append('uploadFile', f);
+		}
+		
+		$.ajax({
+			url : contextPath + '/uploadAjaxAction', 
+			type : 'post', 
+			processData : false, 
+			contentType : false, 
+			data : formData, 
+			dataType : 'json', 
+			success : function(result){
+				showUploadResult(result);
+			}
+			
+		});
+	})
+	
+	// 파일 삭제 
+	$('.uploadResult ul').on('click','span',function(){
+		let targetFile = $(this).data('file'); 
+		let type = $(this).data('type');
+		let targetLi = $(this).closest('li');
+		
+		$.ajax({
+			url : contextPath + '/deleteFile', 
+			type : 'post', 
+			data : {fileName : targetFile, type : type}, 
+			dataType : 'text',  				
+			success : function(result){
+				alert(result); 
+				targetLi.remove(); 
 			}
 		})
-	
-		*/
 		
-	}); //document red end
-
+	})
+	
+}); // document ready end
 </script>
-
 <%@ include file="../layout/footer.jsp" %>

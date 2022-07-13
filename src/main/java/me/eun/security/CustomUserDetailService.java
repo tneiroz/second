@@ -10,7 +10,7 @@ import me.eun.mapper.MemberMapper;
 import me.eun.model.MemberVO;
 
 @Component
-public class CustomUserDetaliService implements UserDetailsService{
+public class CustomUserDetailService implements UserDetailsService{
 
 	
 	@Autowired

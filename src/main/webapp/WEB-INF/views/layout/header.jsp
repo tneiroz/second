@@ -10,7 +10,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">let contextPath = '${contextPath}'</script>
+<script>
+	let contextPath = "${contextPath}";
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenName = "${_csrf.token}";
+
+</script>
 <script src="${contextPath}/resources/js/reply.js"></script>
 
 </head>
@@ -23,10 +28,10 @@
     			<a class="nav-link" href="${contextPath}/board/list">게시판</a>
     		</li>
     		<li class="nav-item">
-      			<a class="nav-link" href="#">Link 2</a>
+      			<a class="nav-link" href="#">미지의 세계</a>
     		</li>
    			<li class="nav-item">
-      		<a class="nav-link" href="#">Link 3</a>
+      		<a class="nav-link" href="#">열려라 참깨</a>
     		</li>
   		</ul>
 </nav>

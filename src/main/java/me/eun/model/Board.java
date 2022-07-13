@@ -19,6 +19,9 @@ public class Board {
 	private String content;
 	private String writer;
 	private int replyCnt;
+	private Long viewCnt;
+	
+	
 	private LocalDateTime regDate ;
 	private LocalDateTime updateDate;
 	

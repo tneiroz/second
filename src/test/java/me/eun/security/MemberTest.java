@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import me.eun.AppTest;
@@ -20,6 +21,7 @@ public class MemberTest extends AppTest {
 	DataSource dataSource;
 	
 	@Autowired
+	@Qualifier (value = "bcryptPwEncoder")
 	PasswordEncoder passwordEncoder;
 	
 	@Test
